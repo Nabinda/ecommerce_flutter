@@ -43,6 +43,7 @@ class _BottomBarNavigationScreenState extends State<BottomBarNavigationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: PageView(
         controller: pageController,
         children: _pages,
