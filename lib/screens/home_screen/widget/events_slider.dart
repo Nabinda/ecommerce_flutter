@@ -22,7 +22,7 @@ class EventsSlider extends StatelessWidget {
       ),
       itemBuilder: (ctx, index, realIdx) {
         return ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(5.0)),
+            borderRadius: const BorderRadius.all(Radius.circular(5.0)),
             child: Image.network(imgList[index], fit: BoxFit.fill));
       },
     );

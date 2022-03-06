@@ -15,6 +15,7 @@ class BottomBarNavigationScreen extends StatefulWidget {
 class _BottomBarNavigationScreenState extends State<BottomBarNavigationScreen> {
   int _selectedIndex = 0;
   late PageController pageController;
+  int cartNumber = 0;
   static const List<Widget> _pages = <Widget>[
     HomeScreen(),
     SearchScreen(),
@@ -50,21 +51,48 @@ class _BottomBarNavigationScreenState extends State<BottomBarNavigationScreen> {
         onPageChanged: _onItemTapped,
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+        items: <BottomNavigationBarItem>[
+          const BottomNavigationBarItem(
+            icon: Icon(
+              Icons.home,
+            ),
             label: 'Home',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
+          const BottomNavigationBarItem(
+            icon: Icon(
+              Icons.search,
+            ),
             label: 'Search',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart),
+            icon: Stack(
+              children: [
+                const Icon(
+                  Icons.shopping_cart,
+                ),
+                cartNumber > 0
+                    ? Positioned(
+                        top: 0,
+                        right: 0,
+                        child: Container(
+                          padding: const EdgeInsets.all(3),
+                          decoration: const BoxDecoration(
+                              color: Colors.red, shape: BoxShape.circle),
+                          child: Text(
+                            cartNumber.toString(),
+                            style: const TextStyle(
+                                fontSize: 6, color: Colors.white),
+                          ),
+                        ))
+                    : const SizedBox(),
+              ],
+            ),
             label: 'Cart',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
+          const BottomNavigationBarItem(
+            icon: Icon(
+              Icons.person,
+            ),
             label: 'Profile',
           ),
         ],

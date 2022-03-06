@@ -37,6 +37,7 @@ dependencies:
   provider: ^6.0.2
   shared_preferences: ^2.0.13
   carousel_slider: ^4.0.0
+  expandable: ^5.0.1
 
 
 dev_dependencies:

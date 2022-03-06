@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'package:ecommerce/provider/category_provider.dart';
 import 'package:ecommerce/provider/network_status_provider.dart';
 import 'package:ecommerce/provider/theme_provider.dart';
 import 'package:ecommerce/screens/bottom_bar_navigation_screen.dart';
+import 'package:ecommerce/values/routes.dart';
 import 'package:ecommerce/values/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +28,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(providers: [
       ChangeNotifierProvider(create: (_) => NetworkStatusProvider()),
+      ChangeNotifierProvider(create: (_) => CategoryProvider()),
     ], child: const Home());
   }
 }
@@ -40,6 +43,7 @@ class Home extends StatelessWidget {
       theme: themeNotifier.getTheme(),
       title: "Ecommerce",
       home: const CheckConnection(),
+      routes: Routes.routes,
     );
   }
 }

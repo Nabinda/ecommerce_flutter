@@ -12,7 +12,7 @@ class CartScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        title: Text("Cart"),
+        title: const Text("Cart"),
       ),
     );
   }

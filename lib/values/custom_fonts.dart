@@ -9,7 +9,15 @@ class CustomFonts{
       fontSize: 18,
       fontWeight: FontWeight.w400
   );
+  static const TextStyle productTitle = TextStyle(
+    fontSize: 18,
+  );
   static const TextStyle normalText = TextStyle(
       fontSize: 14,
   );
+  static const TextStyle categoryFont = TextStyle(
+    fontSize: 16,
+      fontWeight: FontWeight.w500
+  );
+
 }
