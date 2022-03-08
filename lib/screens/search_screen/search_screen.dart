@@ -12,7 +12,7 @@ class SearchScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        title: Text("Search"),
+        title: const Text("Search"),
       ),
     );
   }

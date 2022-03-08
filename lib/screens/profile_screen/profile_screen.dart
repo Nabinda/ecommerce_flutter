@@ -34,12 +34,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        title: Text("Profile"),
+        title: const Text("Profile"),
       ),
       body: ListView(
         children: <Widget>[
           ListTile(
-            title: Text('Dark Theme'),
+            title: const Text('Dark Theme'),
             contentPadding: const EdgeInsets.only(left: 16.0),
             trailing: Switch(
                 value: isSwitched,

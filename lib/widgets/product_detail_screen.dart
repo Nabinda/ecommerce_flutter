@@ -1,12 +1,15 @@
 import 'package:ecommerce/helper/review_list.dart';
 import 'package:ecommerce/helper/unordered_list.dart';
+import 'package:ecommerce/model/product_model.dart';
 import 'package:ecommerce/widgets/product_image_slider.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce/values/custom_fonts.dart' as font;
 
 class ProductDetailScreen extends StatefulWidget {
-  const ProductDetailScreen({Key? key}) : super(key: key);
+  final ProductModel product;
+  const ProductDetailScreen({Key? key, required this.product})
+      : super(key: key);
   static const routeName = "/product_detail_screen";
 
   @override
@@ -15,16 +18,6 @@ class ProductDetailScreen extends StatefulWidget {
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
   bool showReview = false;
-  String productName = "BERSACHE";
-
-  String productShortDescription =
-      "Bersache Sports Running, Loafers, Sneakers Shoes for Men ORIWFSH-1657 Running Shoes For Men";
-
-  String productLongDescription =
-      "100% genuine (The SELLER guarantees the authenticity of the product)Converse?s range of sneakers need no introduction as they are a global brand with almost cult-like following. Steeped in history, unique in design and reliable in function, Converse has never failed anyone. So, make your feet happy and skip to the beat of your life?s rhythm with this fun sneakers.";
-
-  List<String> services = ["7 Days Returns", "Warranty not Available"];
-
   List<Map<String, String>> reviews = [
     {
       "userName": "Ram Bahadur",
@@ -50,14 +43,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     },
   ];
 
-  int productQuantity = 10;
-
-  double productPrice = 1500;
-
-  double discPrice = 2500;
-
-  double discPercentage = 35;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,14 +52,14 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           child: Container(
             color: Theme.of(context).scaffoldBackgroundColor,
             child: Hero(
-              tag: 'id',
+              tag: 1,
               createRectTween: (begin, end) {
                 return MaterialRectArcTween(begin: end, end: begin);
               },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const ProductImageSlider(),
+                  ProductImageSlider(imageURL: widget.product.productURL),
                   spacing(10),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -82,52 +67,56 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          productName,
+                          widget.product.productName,
                           style: font.CustomFonts.productTitle,
                         ),
                         spacing(8),
                         Text(
-                          productShortDescription,
+                          widget.product.productShortDescription,
                           style: font.CustomFonts.normalText,
                         ),
                         spacing(8),
-                        productQuantity > 0
-                            ? RichText(
-                                text: TextSpan(
-                                  text: 'Rs.' + productPrice.toStringAsFixed(2),
-                                  style: TextStyle(
-                                      color: Theme.of(context).indicatorColor,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500),
-                                  children: <TextSpan>[
-                                    const TextSpan(text: '\t\t'),
-                                    discPercentage > 0
-                                        ? TextSpan(
-                                            text: 'Rs. ' +
-                                                discPrice.toStringAsFixed(2),
-                                            style: const TextStyle(
-                                              color: Colors.grey,
-                                              fontSize: 14,
-                                              decoration:
-                                                  TextDecoration.lineThrough,
-                                            ),
-                                          )
-                                        : const TextSpan(text: ''),
-                                    discPercentage > 0
-                                        ? TextSpan(
-                                            text: "\t\t" +
-                                                discPercentage
-                                                    .toStringAsFixed(0) +
-                                                "% OFF",
-                                            style: TextStyle(
-                                              color: Theme.of(context)
-                                                  .indicatorColor,
-                                              fontSize: 16,
-                                            ),
-                                          )
-                                        : const TextSpan(text: ''),
-                                  ],
-                                ),
+                        RichText(
+                          text: TextSpan(
+                            text: 'Rs.' + widget.product.productPrice,
+                            style: TextStyle(
+                                color: Theme.of(context).indicatorColor,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500),
+                            children: <TextSpan>[
+                              const TextSpan(text: '\t\t'),
+                              widget.product.discPercentage != ''
+                                  ? TextSpan(
+                                      text: 'Rs. ' +
+                                          widget.product.priceWithOutDisc,
+                                      style: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 14,
+                                        decoration: TextDecoration.lineThrough,
+                                      ),
+                                    )
+                                  : const TextSpan(text: ''),
+                              widget.product.discPercentage != ''
+                                  ? TextSpan(
+                                      text: "\t\t" +
+                                          widget.product.discPercentage +
+                                          "% OFF",
+                                      style: TextStyle(
+                                        color: Theme.of(context).indicatorColor,
+                                        fontSize: 16,
+                                      ),
+                                    )
+                                  : const TextSpan(text: ''),
+                            ],
+                          ),
+                        ),
+                        int.parse(widget.product.productPrice) > 0
+                            ? Text(
+                                '\t\t\tIn Stock',
+                                style: TextStyle(
+                                    color: Theme.of(context).indicatorColor,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500),
                               )
                             : Text(
                                 '\t\tSold Out!!!',
@@ -140,17 +129,30 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         horizontalLine(context),
                         labeling("Services"),
                         spacing(8),
-                        displayService(services),
+                        displayService(widget.product.services),
                         horizontalLine(context),
-                        ExpandablePanel(
-                            header: labeling("Reviews"),
-                            collapsed: Container(
-                              padding: const EdgeInsets.only(left: 10.0),
-                              child: ReviewItem(
-                                review: reviews[0],
+                        widget.product.reviews.isNotEmpty
+                            ? ExpandablePanel(
+                                header: labeling("Reviews"),
+                                collapsed: Container(
+                                  padding: const EdgeInsets.only(left: 10.0),
+                                  child: ReviewItem(
+                                    review: widget.product.reviews[0],
+                                  ),
+                                ),
+                                expanded: displayReview(widget.product.reviews))
+                            : Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  labeling("Reviews"),
+                                  spacing(8),
+                                  const Center(
+                                      child: Text(
+                                    "\nNo Reviews",
+                                    style: font.CustomFonts.categoryFont,
+                                  ))
+                                ],
                               ),
-                            ),
-                            expanded: displayReview(reviews)),
                         spacing(2),
                         horizontalLine(context),
                         labeling("Descriptions"),
@@ -158,7 +160,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         Container(
                             padding: const EdgeInsets.only(left: 13),
                             child: Text(
-                              productLongDescription,
+                              widget.product.productLongDescription,
                               textAlign: TextAlign.justify,
                               style: font.CustomFonts.normalText,
                             )),
@@ -197,7 +199,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         style: font.CustomFonts.labeling,
       );
 
-  Widget displayService(List<String> service) {
+  Widget displayService(List<dynamic> service) {
     return Container(
         padding: const EdgeInsets.only(left: 22),
         child: UnorderedList(
@@ -206,7 +208,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         ));
   }
 
-  Widget displayReview(List<Map<String, String>> review) {
+  Widget displayReview(List<dynamic> review) {
     return Container(
       padding: const EdgeInsets.only(left: 10),
       child: ReviewLists(reviews: review),

@@ -18,7 +18,7 @@ class CategoryInfo extends StatelessWidget {
         );
       },
       child: Container(
-        width: MediaQuery.of(context).size.width * 0.45,
+        width: 220,
         padding: const EdgeInsets.all(8.0),
         margin: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 8.0),
         decoration: BoxDecoration(
@@ -26,7 +26,7 @@ class CategoryInfo extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.network(category.categoryURL, fit: BoxFit.fill, height: 150),
+            Image.network(category.categoryURL, fit: BoxFit.fill, height: 150,width: 250,),
             const SizedBox(
               height: 8,
             ),

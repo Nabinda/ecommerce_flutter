@@ -5,12 +5,14 @@ import 'package:ecommerce/provider/theme_provider.dart';
 import 'package:ecommerce/screens/bottom_bar_navigation_screen.dart';
 import 'package:ecommerce/values/routes.dart';
 import 'package:ecommerce/values/theme.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   SharedPreferences.getInstance().then((prefs) {
     var darkModeOn = prefs.getBool('darkMode') ?? true;
     runApp(

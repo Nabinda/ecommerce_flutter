@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecommerce/model/product_model.dart';
 import 'package:ecommerce/widgets/product_info.dart';
 import 'package:flutter/material.dart';
 
@@ -18,12 +20,28 @@ class _CategoryListingScreenState extends State<CategoryListingScreen> {
       appBar: AppBar(
         title: Text(widget.category),
       ),
-      body: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2, childAspectRatio: 0.75),
-          itemCount: 20,
-          itemBuilder: (context, index) {
-            return ProductInfo();
+      body: StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance
+              .collection('product')
+              .where("category", isEqualTo: widget.category)
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator();
+            }
+            if(!snapshot.hasData){
+              return const Text("No Data");
+            }else {
+              final data = snapshot.data!;
+              return GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2, childAspectRatio: 0.75),
+                  itemCount: data.docs.length,
+                  itemBuilder: (context, index) {
+                    ProductModel product = ProductModel.fromDocument(data.docs[index]);
+                    return ProductInfo(product: product,);
+                  });
+            }
           }),
     );
   }

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "755973689278",
+    "project_id": "ecommerce-5ef7d",
+    "storage_bucket": "ecommerce-5ef7d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:755973689278:android:547f0eefdb4d46e65af3ef",
+        "android_client_info": {
+          "package_name": "com.dangolnabin.ecommerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "755973689278-bfjitu7alk2cj02vvh2jmd9i7akd4rnc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVthFoGkfta8AE38SEYlE_tdtyeAf1JP8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "755973689278-bfjitu7alk2cj02vvh2jmd9i7akd4rnc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

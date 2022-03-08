@@ -1,5 +1,6 @@
 import 'package:ecommerce/screens/home_screen/widget/categories.dart';
 import 'package:ecommerce/screens/home_screen/widget/events_slider.dart';
+import 'package:ecommerce/screens/home_screen/widget/for_you.dart';
 import 'package:ecommerce/screens/home_screen/widget/sales.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce/values/custom_fonts.dart' as font;
@@ -37,13 +38,16 @@ class HomeScreen extends StatelessWidget {
                   EventsSlider(),
                   spacing(),
                   labeling("Flash Sale!!!"),
-                  const Sales(),
+                  const Sales(filter: 'Flash Sales'),
                   spacing(),
                   labeling("Categories"),
                   const Categories(),
                   spacing(),
                   labeling("Trending"),
-                  const Sales(),
+                  const Sales(filter: 'Trending',),
+                  spacing(),
+                  labeling("For You"),
+                  const ForYou(),
                 ],
               ),
             ),

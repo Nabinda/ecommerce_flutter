@@ -17,6 +17,8 @@ class EventsSlider extends StatelessWidget {
     return CarouselSlider.builder(
       itemCount: imgList.length,
       options: CarouselOptions(
+        height: MediaQuery.of(context).size.height*0.27,
+        viewportFraction: 1,
         autoPlay: true,
         enlargeCenterPage: true,
       ),

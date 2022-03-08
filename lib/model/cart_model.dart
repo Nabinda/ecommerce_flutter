@@ -1,5 +1,3 @@
-import 'package:ecommerce/model/product_model.dart';
-
 class CartModel {
   final String userId;
   final List<IndividualProduct> cart;
